@@ -53,7 +53,12 @@ const loginUser =  asyncHandler(async(req,res)=>{
         {expiresIn : '1h'}
         )
 
-        res.cookie('token',token)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true, 
+            sameSite: 'None', 
+          });
+          
         res.status(200).json({token})
     }else{
         res.status(400).json({msg : "email and password not valid"})
